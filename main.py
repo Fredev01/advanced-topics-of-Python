@@ -1,6 +1,7 @@
-from flask import Flask, request, json, jsonify
+from flask import request, json, jsonify
+from config import app, socketio
 from flask_cors import CORS
-app = Flask(__name__)
+
 CORS(app, resources=r'/api/*', origins="*")
 
 
@@ -19,4 +20,4 @@ def execute_action_ficture():
 
 
 if __name__ == "__main__":
-    app.run()
+    socketio.run(app, host="0.0.0.0", allow_unsafe_werkzeug=True)

@@ -2,6 +2,18 @@ from types import MethodType
 # from abc import ABCMeta
 
 
+class WebSocket:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    def __init__(self):
+        pass
+
+
+
 class Notifier(object):
     _instance = None
     _count_instance = 0
@@ -18,7 +30,7 @@ class Notifier(object):
     def __call__(self, *args, **kwargs):
         print("Before executing function")
         result = self.func(*args, **kwargs)
-        print(f"After executing function: {result}")
+        print(f"After executing function {self.func.__name__}: {result}")
         return result
 
     def __get__(self, instance, owner):

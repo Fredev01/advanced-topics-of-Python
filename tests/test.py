@@ -1,3 +1,4 @@
+import time
 from abc import ABC, abstractmethod
 from notifier.notifier import Notifier
 
@@ -15,4 +16,5 @@ class Test1(Test):
     @Notifier
     def execute(self, fixture):
         print("inside the function execute")
+        time.sleep(5)
         return f"Hello from Test1 {fixture} "
