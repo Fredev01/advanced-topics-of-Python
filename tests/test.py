@@ -1,6 +1,6 @@
 import time
 from abc import ABC, abstractmethod
-from notifier.notifier import Notifier
+from notifier.notifier import notifier
 
 
 class Test(ABC):
@@ -13,8 +13,8 @@ class Test1(Test):
     def __init__(self, data):
         self.data = data
 
-    @Notifier
+    @notifier
     def execute(self, fixture):
         print("inside the function execute")
-        time.sleep(5)
+        time.sleep(1)
         return f"Hello from Test1 {fixture} "
