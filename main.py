@@ -1,23 +1,32 @@
-from flask import request, json, jsonify
-from config import app, socketio
-from flask_cors import CORS
+import time
 
-CORS(app, resources=r'/api/*', origins="*")
-
-
-@app.get('/api/get_model_to_render')
-def get_model_to_render():
-    return {"msg": "trying to better"}
-
-
-@app.post('/api/execute_action_fixture')
-def execute_action_ficture():
-    data = request.json
-    if data:
-        print(data['typeComponent'])
-        return jsonify({"msg": "Action executed"})
-    return jsonify({"error": "no data recived"})
-
+from webapp_gui import WebAppGUI
+from threading import enumerate, main_thread
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", allow_unsafe_werkzeug=True)
+    test_suite = "some test suite"
+    gui = WebAppGUI(test_suite)
+    try:
+        gui.start()
+        for i in range(20):
+            print(f"in process num : {i}")
+            time.sleep(0.7)
+        for i in range(20):
+            print(f"in process num : {i}")
+    except KeyboardInterrupt:
+        print("bye ;)")
+    except Exception as e:
+        print(e)
+    finally:
+        gui.stop()
+        list_threads = enumerate()
+        print("Hilos después de detener la aplicación:", list_threads)
+        for thread in list_threads:
+            if thread != main_thread():
+                print(f"Intentando detener el hilo: {thread.name}")
+                thread.join(timeout=1)
+                if thread.is_alive():
+                    print(f"No se pudo detener el hilo: {thread.name}")
+    list_threads = enumerate()
+    print("Hilos al final del programa:", list_threads)
+
