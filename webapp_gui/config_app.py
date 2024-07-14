@@ -6,8 +6,11 @@ import logging
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
 logging.getLogger('flask.app').setLevel(logging.ERROR)
 
+app: Flask | None = None
+socketio: SocketIO | None = None
 
 def get_app() -> tuple[SocketIO, Flask]:
+    global app, socketio
     app = Flask(__name__)
     socketio = SocketIO(app, cors_allowed_origins="*")
     CORS(app, resources=r'/api/*', origins="*")
@@ -15,3 +18,7 @@ def get_app() -> tuple[SocketIO, Flask]:
     app.register_blueprint(app_test_suite)
 
     return socketio, app
+
+def get_socketio() -> SocketIO:
+    global socketio
+    return socketio

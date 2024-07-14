@@ -18,9 +18,9 @@ if __name__ == "__main__":
     except Exception as e:
         print(e)
     finally:
-        gui.stop()
         list_threads = enumerate()
         print("Hilos después de detener la aplicación:", list_threads)
+        gui.stop()
         for thread in list_threads:
             if thread != main_thread():
                 print(f"Intentando detener el hilo: {thread.name}")
